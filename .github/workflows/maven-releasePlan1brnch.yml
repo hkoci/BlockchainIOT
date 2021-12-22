@@ -19,8 +19,8 @@ defaults:
 # Workflow Jobs
 jobs:
   # Boolean flag output of file changes under the prototypeIOT folder
-  check:
-    DirectoryCheck: Check files
+  DirectoryCheck:
+    name: Check files
     outputs:
       executeCI: ${{ steps.javaChanges.outputs.executeCI }}
     # Test on latest Ubuntu container
