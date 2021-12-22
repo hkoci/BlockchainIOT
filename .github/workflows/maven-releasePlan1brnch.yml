@@ -49,8 +49,8 @@ jobs:
   # JavaCI Workflow
   JavaCIWorkflow:
     name: JavaCI testing
-    needs: check
-    if: needs.check.outputs.executeCI == 'true'
+    needs: DirectoryCheck
+    if: needs.DirectoryCheck.outputs.executeCI == 'true'
     runs-on: ubuntu-latest
     steps:
       # Setup the JDK dev environment with JDK 17
