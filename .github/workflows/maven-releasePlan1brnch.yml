@@ -20,10 +20,9 @@ defaults:
 jobs:
   # Boolean flag output of file changes under the prototypeIOT folder
   check:
-    name: Check files
+    DirectoryCheck: Check files
     outputs:
       executeCI: ${{ steps.javaChanges.outputs.executeCI }}
-  build:
     # Test on latest Ubuntu container
     runs-on: ubuntu-latest
     # Perform the following
@@ -35,7 +34,7 @@ jobs:
     # Change if there any changes to the PrototypeIOT folder
     - name: Check for changes under PrototypeIOT
       id: javaChanges
-      run:
+      run: |
         git diff --name-only HEAD^ HEAD > files.txt
         while IFS= read -r file
         do
