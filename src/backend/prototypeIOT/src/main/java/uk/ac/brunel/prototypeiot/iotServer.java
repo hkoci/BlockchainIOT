@@ -33,6 +33,9 @@ public class iotServer {
         PrintWriter printObject = new PrintWriter(socketObject.getOutputStream());
         printObject.println("Hello Client - I see you!");
         printObject.flush();
+
+        //Close the socket session when the message has been sent over
+        serverSockObject.close();
         
     }
     
