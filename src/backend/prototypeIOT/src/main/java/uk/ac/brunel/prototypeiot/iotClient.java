@@ -15,8 +15,18 @@ import java.io.*;
 public class iotClient {
     
     public static void main(String[] args) throws IOException {
+
+        //Server Vars
+        String host = "localhost"; //hostname
+        int port = 4999; //port number
+
+        //Receive message from server using the provided hostname/port arguments
+        receiveMessage(host,port);
+    }
+
+    public static void receiveMessage(String hostName, int portNumber) throws IOException {
         //Create client socket connection to localhost with port 4999
-        Socket socketObject = new Socket("localhost", 4999);
+        Socket socketObject = new Socket(hostName, portNumber);
         
         //Send a message to the server using the PrintWriter
         PrintWriter printObject = new PrintWriter(socketObject.getOutputStream());
@@ -29,5 +39,8 @@ public class iotClient {
         
         //Print the server output from bufferedreader object
         System.out.println("Server says: " + bufferObject.readLine());
+
+        //Close the socket session when the message has been sent over
+        socketObject.close();
     }
 }
