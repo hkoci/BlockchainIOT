@@ -52,6 +52,8 @@ jobs:
     needs: DirectoryCheck
     if: needs.DirectoryCheck.outputs.executeCI == 'true'
     runs-on: ubuntu-latest
+    env:
+      working-directory: src/backend/prototypeIOT
     steps:
       # Setup the JDK dev environment with JDK 17
       - name: Set up JDK 1.17
@@ -68,6 +70,8 @@ jobs:
       # Test the application using maven
       - name: Run JUnit testing with Maven
         run: mvn -B test --file pom.xml
+        working-directory: ${{env.working-directory}}
       # Build the application package using maven
       - name: Build with Maven
         run: mvn -B package --file pom.xml
+        working-directory: ${{env.working-directory}}
