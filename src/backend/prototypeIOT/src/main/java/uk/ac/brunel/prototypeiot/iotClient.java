@@ -23,11 +23,43 @@ public class iotClient {
         //Receive message from server using the provided hostname/port arguments
         receiveMessage(host,port);
 
+        //Receive message from server using the provided hostname/port arguments
+        receivePrintMessage(host,port);
+
         //Send message to server using the provided hostname/port arguments
         sendMessage(host,port,"Hello Server, do you see me?");
     }
 
-    public static void receiveMessage(String hostName, int portNumber) throws IOException {
+    public static String receiveMessage(String hostName, int portNumber) throws IOException {
+        //Create client socket connection to specified host/port
+        Socket socketObject = new Socket(hostName, portNumber);
+        
+        //Create new reader objects for input/output
+        InputStreamReader inputObject = new InputStreamReader(socketObject.getInputStream());
+        BufferedReader bufferObject = new BufferedReader(inputObject);
+        
+        //Try-catch error handling
+        try{
+            //Attempt to read message from Server
+            String message = bufferObject.readLine();
+
+            //Close socket connection
+            socketObject.close();
+
+            //Return the message
+            return message;
+        }
+        //Catch exception error technique
+        catch(Exception e) {
+            //Close socket
+            socketObject.close();
+
+            //Return the error
+            return e.toString();
+        }
+    }
+
+    public static void receivePrintMessage(String hostName, int portNumber) throws IOException {
         //Create client socket connection to specified host/port
         Socket socketObject = new Socket(hostName, portNumber);
         
