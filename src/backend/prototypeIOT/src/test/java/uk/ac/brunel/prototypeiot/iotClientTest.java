@@ -39,22 +39,22 @@ public class iotClientTest {
     public void tearDown() {
     }
 
+    //Server parameters, including message
+    String hostName = "localhost";
+    int portNumber = 4999;
+    String expMessage = "Hello Client! This is a message from Server :)";
+
     /**
      * Test of receiveMessage method, of class iotClient.
      */
     @Test
-    public void testReceiveMessage() throws Exception {
-        //Server parameters, including message
-        String hostName = "localhost";
-        int portNumber = 4999;
-        String expResult = "Test1234!";
-        
+    public void testReceiveMessage() throws Exception {        
         //Start asynchronous thread for starting server (client-server)
         new Thread(() -> {
             //Try-catch I/O error handling
             try {
                 //Start IOT Server at specified port, send message
-                iotServer.sendMessage(portNumber, expResult);
+                iotServer.sendMessage(portNumber, expMessage);
             } catch (IOException ex) {
                 //Log exception error and fail the unit test
                 Logger.getLogger(iotClientTest.class.getName()).log(Level.SEVERE, null, ex);
@@ -68,7 +68,7 @@ public class iotClientTest {
             try {
                 //Start IOT Client at specified hostname and port, store message
                 String result = iotClient.receiveMessage(hostName, portNumber);
-                assertEquals(expResult, result); //If message received matches - pass unit test
+                assertEquals(expMessage, result); //If message received matches - pass unit test
             } catch (IOException ex) {
                 //Log exception error and fail the unit test
                 Logger.getLogger(iotClientTest.class.getName()).log(Level.SEVERE, null, ex);
@@ -81,18 +81,13 @@ public class iotClientTest {
      * Test of sendMessage method, of class iotClient.
      */
     @Test
-    public void testSendMessage() throws Exception {
-        //Server parameters, including message
-        String hostName = "localhost";
-        int portNumber = 4999;
-        String expResult = "Test1234!";
-        
+    public void testSendMessage() throws Exception {       
         //Start asynchronous thread for starting server (client-server)
         new Thread(() -> {
             //Try-catch I/O error handling
             try {
                 //Start IOT Server at specified port, send message
-                iotServer.sendMessage(portNumber, expResult);
+                iotServer.sendMessage(portNumber, expMessage);
             } catch (IOException ex) {
                 //Log exception error and fail the unit test
                 Logger.getLogger(iotClientTest.class.getName()).log(Level.SEVERE, null, ex);
@@ -106,7 +101,7 @@ public class iotClientTest {
             try {
                 //Start IOT Client at specified hostname and port, store message
                 String result = iotClient.receiveMessage(hostName, portNumber);
-                assertEquals(expResult, result); //If message received matches - pass unit test
+                assertEquals(expMessage, result); //If message received matches - pass unit test
             } catch (IOException ex) {
                 //Log exception error and fail the unit test
                 Logger.getLogger(iotClientTest.class.getName()).log(Level.SEVERE, null, ex);
