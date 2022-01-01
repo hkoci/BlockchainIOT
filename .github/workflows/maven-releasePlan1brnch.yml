@@ -92,12 +92,8 @@ jobs:
       - name: Generate coverage test report (Jacoco)
         run: mvn -B verify -P coverage --no-transfer-progress
       # Perform code coverage analysis with Codecov
-      - uses: codecov/codecov-action@v1
+      - name: Upload to Codecov (Code coverage)
+        uses: codecov/codecov-action@v1
         with:
           file: ./**/target/site/jacoco/jacoco.xml
           name: codecov
-      # Upload code coverage analysis with Codecov
-      - name: Upload to Codecov (Code coverage)
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-        run: bash <(curl -s https://codecov.io/bash)
