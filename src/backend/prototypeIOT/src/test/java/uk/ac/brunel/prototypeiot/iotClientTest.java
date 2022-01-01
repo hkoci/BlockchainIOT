@@ -42,18 +42,6 @@ public class iotClientTest {
     }
 
     /**
-     * Test of main method, of class iotClient.
-     */
-    @Test
-    public void testMain() throws Exception {
-        System.out.println("main");
-        String[] args = null;
-        iotClient.main(args);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of receiveMessage method, of class iotClient.
      */
     @Test
@@ -92,30 +80,41 @@ public class iotClientTest {
     }
 
     /**
-     * Test of receivePrintMessage method, of class iotClient.
-     */
-    @Test
-    public void testReceivePrintMessage() throws Exception {
-        System.out.println("receivePrintMessage");
-        String hostName = "";
-        int portNumber = 0;
-        iotClient.receivePrintMessage(hostName, portNumber);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of sendMessage method, of class iotClient.
      */
     @Test
     public void testSendMessage() throws Exception {
-        System.out.println("sendMessage");
-        String hostName = "";
-        int portNumber = 0;
-        String message = "";
-        iotClient.sendMessage(hostName, portNumber, message);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //Server parameters, including message
+        String hostName = "localhost";
+        int portNumber = 4999;
+        String expResult = "Test1234!";
+        
+        //Start asynchronous thread for starting server (client-server)
+        new Thread(() -> {
+            //Try-catch I/O error handling
+            try {
+                //Start IOT Server at specified port, send message
+                iotServer.sendMessage(portNumber, expResult);
+            } catch (IOException ex) {
+                //Log exception error and fail the unit test
+                Logger.getLogger(iotClientTest.class.getName()).log(Level.SEVERE, null, ex);
+                fail("Exception in IOTServer" + ex.getMessage());
+            }
+        }).start();
+        
+        //Start asynchronous thread for starting client (client-server)
+        new Thread(() -> {
+            //Try-catch I/O error handling
+            try {
+                //Start IOT Client at specified hostname and port, store message
+                String result = iotClient.receiveMessage(hostName, portNumber);
+                assertEquals(expResult, result); //If message received matches - pass unit test
+            } catch (IOException ex) {
+                //Log exception error and fail the unit test
+                Logger.getLogger(iotClientTest.class.getName()).log(Level.SEVERE, null, ex);
+                fail("Exception in IOTClient" + ex.getMessage());
+            }
+        }).start();
     }
     
 }
