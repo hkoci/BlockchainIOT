@@ -1,4 +1,7 @@
 ## Adopting the Internet of Things (IoT) with Blockchain
+
+[![CodeFactor](https://www.codefactor.io/repository/github/hkoci/blockchainiot/badge/main?s=fd2e7bc2b7e54ccfb614ec9f000dd8d13e719d54)](https://www.codefactor.io/repository/github/hkoci/blockchainiot/overview/main)
+
 The aim of this project is to create a blockchain solution that aims to solve the maintainability, security, and privacy issues by using the blockchain infrastructure.
 
 ![sysdesign](/docs/assets/SystemDesign/sysdesign.png)
