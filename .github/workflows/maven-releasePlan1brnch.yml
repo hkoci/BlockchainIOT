@@ -55,6 +55,8 @@ jobs:
     env:
       working-directory: src/backend/prototypeIOT
     steps:
+      # Checkout the git
+      - uses: actions/checkout@v2
       # Setup the JDK dev environment with JDK 17
       - name: Set up JDK 1.17
         uses: actions/setup-java@v2
