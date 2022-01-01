@@ -63,6 +63,10 @@ jobs:
       # Test the application using maven
       - name: Run JUnit testing with Maven
         run: mvn -B test --file pom.xml
+      # Generate Coverage Test
+      - name: Generate coverage test report (Cobertura)
+        run: mvn cobertura:cobertura
+        working-directory: ${{env.working-directory}}
       # Perform code coverage analysis with Codecov
       - name: Upload to Codecov (Code coverage)
         env:
