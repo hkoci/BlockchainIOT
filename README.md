@@ -1,6 +1,7 @@
 ## Adopting the Internet of Things (IoT) with Blockchain
 
-[![CodeFactor](https://www.codefactor.io/repository/github/hkoci/blockchainiot/badge/main?s=fd2e7bc2b7e54ccfb614ec9f000dd8d13e719d54)](https://www.codefactor.io/repository/github/hkoci/blockchainiot/overview/main) [![codecov](https://codecov.io/gh/hkoci/BlockchainIOT/branch/main/graph/badge.svg?token=KXV8UA2EVD)](https://codecov.io/gh/hkoci/BlockchainIOT)
+[![CodeFactor](https://www.codefactor.io/repository/github/hkoci/blockchainiot/badge/main?s=fd2e7bc2b7e54ccfb614ec9f000dd8d13e719d54)](https://www.codefactor.io/repository/github/hkoci/blockchainiot/overview/main) [![codecov](https://codecov.io/gh/hkoci/BlockchainIOT/branch/main/graph/badge.svg?token=KXV8UA2EVD)](https://codecov.io/gh/hkoci/BlockchainIOT) [![Java CI Testing Badge](https://github.com/hkoci/BlockchainIOT/workflows/Backend%20CI%20(Prototype)/badge.svg)](https://github.com/hkoci/BlockchainIOT/actions/workflows/maven-releasePlan1brnch.yml) [![Java CI Testing Badge](https://github.com/hkoci/BlockchainIOT/workflows/Backend%20CI%20(Spring)/badge.svg)](https://github.com/hkoci/BlockchainIOT/actions/workflows/maven.yml)
+
 
 The aim of this project is to create a blockchain solution that aims to solve the maintainability, security, and privacy issues by using the blockchain infrastructure.
 
