@@ -68,6 +68,11 @@ jobs:
       - name: Run JUnit testing with Maven
         run: mvn -B test --file pom.xml
         working-directory: ${{env.working-directory}}
+      # Perform code coverage analysis with Codecov
+      - name: Upload to Codecov (Code coverage)
+        env:
+          CODECOV_TOKEN: $
+        run: bash <(curl -s https://codecov.io/bash)
       # Build the application package using maven
       - name: Build with Maven
         run: mvn -B package --file pom.xml
