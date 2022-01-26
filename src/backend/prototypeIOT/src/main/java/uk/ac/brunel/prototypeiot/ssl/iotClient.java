@@ -17,7 +17,7 @@ import org.springframework.core.io.ClassPathResource;
  *
  * @author Henri
  */
-public class iotServer {
+public class iotClient {
     
     //Server configuration variables assigned with default values
     private static int serverPort = 4999;
@@ -25,7 +25,7 @@ public class iotServer {
     private static final Logger debugLogger = Logger.getLogger(iotServer.class.getName());
     
     //Default values assigned in constructor
-    iotServer(int port, String hostName){
+    iotClient(int port, String hostName){
         serverPort = setServerPort(port);
         serverHost = setServerHost(hostName);
     }
@@ -65,56 +65,56 @@ public class iotServer {
         System.setProperty("javax.net.ssl.trustStorePassword","Bl0ckCh41nI0T");
         System.setProperty("javax.net.ssl.keyStoreType", "JKS");
         
-        System.out.println("Port" + serverPort);
-        
-        //Send message to client, starting server argument at defined port with message
-        sendMessage(serverPort, "Hello Client - I see you!");
-        
-        //Recieve client message, starting server argument at defined port
-        //String message = receiveMessage(serverPort);
+        //Receive message from server using the provided hostname/port arguments
+        String message = receiveMessage(serverHost,serverPort);
+        System.out.println("Server says: " + message);
 
-        //Print message recieved from client
-        //System.out.println("Client says: " + message);
+        //Send message to server using the provided hostname/port arguments
+        sendMessage(serverHost,serverPort,"Hello Server, do you see me?");
     }
     
-    public static String receiveMessage(int portNumber) throws IOException{
-        //Instantiate SSLSocketFactory to create ServerSocket with SSL comms.
-        SSLServerSocketFactory socketFactory = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
+    public static String receiveMessage(String hostName, int portNumber) throws IOException {
+        SSLSocketFactory socketFactory =  (SSLSocketFactory) SSLSocketFactory.getDefault();
+        SSLSocket socketObject = (SSLSocket) socketFactory.createSocket(hostName, portNumber);
+        //socketObject.startHandshake();
         
-        //Create Socket object at defined port number
-        SSLServerSocket serverSockObject =  (SSLServerSocket) socketFactory.createServerSocket(portNumber);
-        
-        //Launch server socket with port specified port parameter
-        Socket socketObject = serverSockObject.accept();
-        
-        //Socket accepted by client - display successful connection
-        System.out.println("Socket connected to client!");
+        //Create client socket connection to specified host/port
+        //Socket socketObject = new Socket(hostName, portNumber);
         
         //Create new reader objects for input/output
         InputStreamReader inputObject = new InputStreamReader(socketObject.getInputStream());
         BufferedReader bufferObject = new BufferedReader(inputObject);
+        
+        //Try-catch error handling
+        try{
+            //Attempt to read message from Server
+            String message = bufferObject.readLine();
 
-        //Close the socket session when the message has been recived
-        socketObject.close();
+            //Close socket connection
+            socketObject.close();
 
-        //Return the client output from bufferedreader object
-        return bufferObject.readLine();
+            //Return the message
+            return message;
+        }
+        //Catch exception error technique
+        catch(Exception e) {
+            //Close socket
+            socketObject.close();
+
+            //Return the error
+            return e.toString();
+        }
     }
 
-    public static void sendMessage(int portNumber, String message) throws IOException{
-        //Instantiate SSLSocketFactory to create ServerSocket with SSL comms.
-        SSLServerSocketFactory socketFactory = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
+    public static void sendMessage(String hostName, int portNumber, String message) throws IOException {
+        SSLSocketFactory socketFactory =  (SSLSocketFactory) SSLSocketFactory.getDefault();
+        SSLSocket socketObject = (SSLSocket) socketFactory.createSocket(hostName, portNumber);
+        //socketObject.startHandshake();
+
+        //Create client socket connection to specified host/port
+        //Socket socketObject = new Socket(hostName, portNumber);
         
-        //Create Socket object at defined port number
-        SSLServerSocket serverSockObject =  (SSLServerSocket) socketFactory.createServerSocket(portNumber);
-        
-        //Launch server socket with port specified port parameter
-        Socket socketObject = serverSockObject.accept();
-        
-        //Socket accepted by client - display successful connection
-        System.out.println("Socket connected to client!");
-        
-        //Send a message to the client using the PrintWriter
+        //Send a message to the server using the PrintWriter
         PrintWriter printObject = new PrintWriter(socketObject.getOutputStream());
         printObject.println(message);
         printObject.flush();
