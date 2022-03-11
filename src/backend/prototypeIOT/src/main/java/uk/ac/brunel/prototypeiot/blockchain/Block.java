@@ -4,25 +4,29 @@
  */
 package uk.ac.brunel.prototypeiot.blockchain;
 
-import java.util.Date;
-
 /**
  *
  * @author Henri
  * 
  */
-public class Block {
+public class block {
     
     private String hash;
     private String previousHash;
-    private String data;
+    private String blockData;
     private long timeStamp;
     private int nonce;
  
-    public Block(String data, String previousHash, long timeStamp) {
-        this.data = data;
+    public block(String data, String previousHash, long timeStamp) {
+        this.blockData = data;
         this.previousHash = previousHash;
         this.timeStamp = timeStamp;
+        this.hash = hashData();
+    }
+    
+    //Calculate new hash based on blocks contents
+    public String hashData() {
+        return hashAlgorithm.hashSHA3Byte(previousHash + Long.toString(timeStamp) + Integer.toString(nonce) + blockData);
     }
     
 }
