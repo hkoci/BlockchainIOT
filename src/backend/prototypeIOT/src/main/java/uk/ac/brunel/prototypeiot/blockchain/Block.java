@@ -17,6 +17,7 @@ public class block {
     private long timeStamp;
     private int nonce;
  
+    //Block constructor
     public block(String data, String previousHash, long timeStamp) {
         this.blockData = data;
         this.previousHash = previousHash;
@@ -24,9 +25,14 @@ public class block {
         this.hash = hashData();
     }
     
-    //Calculate new hash based on blocks contents
+    //Hashing Algorithm
     public String hashData() {
         return hashAlgorithm.hashSHA3Byte(previousHash + Long.toString(timeStamp) + Integer.toString(nonce) + blockData);
+    }
+    
+    //Hash Getter
+    public String getHash(){
+        return hash;
     }
     
 }
