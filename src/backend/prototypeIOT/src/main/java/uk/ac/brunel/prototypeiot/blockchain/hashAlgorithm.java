@@ -40,15 +40,17 @@ public class hashAlgorithm {
         BigInteger byteSign = new BigInteger(1, hashAsByteArr);
         
         //Generate String of base 16
-        StringBuilder hexString = new StringBuilder(byteSign.toString(16)); 
+        StringBuilder hexByteString = new StringBuilder(byteSign.toString(16)); 
 
-        //Add leading zeros to whole String
-        for (int i = 0; i < hashAsByteArr.length; i++) {
-            hexString.insert(0, '0'); 
+        /* Add leading zeros to whole String, only if not completed
+        32 digits (1 byte = 2 chars, 16 byte = 32 chars) */
+        
+        while (hexByteString.length() < 32) {
+            hexByteString.insert(0, '0'); 
         }
         
         //Return the complete hexadecimal string
-        return hexString.toString();
+        return hexByteString.toString();
     }
    
 }
