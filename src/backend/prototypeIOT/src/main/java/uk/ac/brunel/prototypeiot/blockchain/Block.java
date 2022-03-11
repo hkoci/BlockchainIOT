@@ -11,13 +11,16 @@ package uk.ac.brunel.prototypeiot.blockchain;
  */
 public class block {
     
+    //Block global variables
     private String hash;
     private String previousHash;
     private String blockData;
     private long timeStamp;
     private int nonce;
  
-    //Block constructor
+    /*Block constructor
+    The block is defined in this data structure where hashData is last!
+    */
     public block(String data, String previousHash, long timeStamp) {
         this.blockData = data;
         this.previousHash = previousHash;
@@ -25,14 +28,21 @@ public class block {
         this.hash = hashData();
     }
     
-    //Hashing Algorithm
+    /*Hashing Algorithm
+    Returns a SHA3-256 hash generated on the block byte data
+    */
     public String hashData() {
         return hashAlgorithm.hashSHA3Byte(previousHash + Long.toString(timeStamp) + Integer.toString(nonce) + blockData);
     }
     
     //Hash Getter
-    public String getHash(){
+    public String getCurrentHash(){
         return hash;
+    }
+    
+    //Hash Getter
+    public String getPreviousHash(){
+        return previousHash;
     }
     
 }

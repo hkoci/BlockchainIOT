@@ -5,25 +5,29 @@
 package uk.ac.brunel.prototypeiot.blockchain;
 
 import java.util.Date;
+import java.util.ArrayList;
+import com.google.gson.GsonBuilder;
 
 /**
  *
  * @author Henri
  */
 public class mainLoader {
+    
+    public static ArrayList<block> blockchain = new ArrayList<block>(); 
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        block genesisBlock = new block("Hello World!", "0", new Date().getTime());
-        System.out.println("(Block 1) Hash: " + genesisBlock.getHash());
-
-        block secondBlock = new block("IoT Block 1" , genesisBlock.getHash(), new Date().getTime());
-        System.out.println("(Block 2) Hash: " + secondBlock.getHash());
-
-        block thirdBlock = new block("IoT Block 2" , secondBlock.getHash(), new Date().getTime());
-        System.out.println("(Block 3) Hash: " + thirdBlock.getHash());
+        //Add data to blockchain
+        blockchain.add(new block("Hello World!", "0", new Date().getTime()));
+        blockchain.add(new block("IoT Block 1" , blockchain.get(blockchain.size()-1).getCurrentHash(), new Date().getTime()));
+        blockchain.add(new block("IoT Block 2" , blockchain.get(blockchain.size()-1).getCurrentHash(), new Date().getTime()));
+        
+        //Convert to JSON and print
+	String blockchainJSON = stringManipulation.generateJSON(blockchain);		
+	System.out.println(blockchainJSON);
     }
     
 }
