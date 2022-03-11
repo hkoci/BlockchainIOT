@@ -67,6 +67,13 @@
             <version>5.3.4</version>
             <type>jar</type>
         </dependency>
+        <!-- https://wiki.iota.org/iota.rs/libraries/java/getting_started#maven -->
+        <dependency>
+            <groupId>org.iota.client</groupId>
+            <artifactId>native</artifactId>
+            <version>1.0</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -1,0 +1,1 @@
+mvn install:install-file -Dfile="C:\Users\Henri\Documents\GitHub\BlockchainIOT\src\backend\prototypeIOT\src\main\libs\native.jar" -DgroupId="org.iota.client" -DartifactId="native" -Dversion="1.0" -Dpackaging="jar" -DgeneratePom="true"
