@@ -20,7 +20,7 @@ public class mainLoader {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException {
-        SSLSocketFactory sslsocketfactory = SSLSocketFactory.getDefault();
+        /*SSLSocketFactory sslsocketfactory = SSLSocketFactory.getDefault();
         SSLSocket sslsocket = (SSLSocket) sslsocketfactory.createSocket("localhost", 4999);
         InputStream in = sslsocket.getInputStream();
         OutputStream out = sslsocket.getOutputStream();
@@ -30,7 +30,7 @@ public class mainLoader {
             System.out.print(in.read());
         }
 
-        System.out.println("Secured connection performed successfully");
+        System.out.println("Secured connection performed successfully");*/
     }
     
 }
