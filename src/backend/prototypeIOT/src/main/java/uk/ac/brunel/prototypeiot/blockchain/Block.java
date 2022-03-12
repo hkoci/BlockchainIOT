@@ -52,8 +52,10 @@ public class block {
         //Difficulty is based on the number of starting zero's to be matched
         String hashStartZeros = stringManipulation.getMiningDificulty(difficulty);
         
+        System.out.println("hashStartZeros" + hashStartZeros);
+        
         //If the difficulty has not been reached, then mine the block, increasing nonce on each attempt
-        while(hash.substring(0, difficulty) != hashStartZeros) {
+        while(!hash.substring(0, difficulty).equals(hashStartZeros)) {
             nonce ++;
             hash = hashData();
         }

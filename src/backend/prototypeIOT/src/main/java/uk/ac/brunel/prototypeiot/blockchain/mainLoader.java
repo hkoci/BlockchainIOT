@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class mainLoader {
     
     public static ArrayList<block> ledger = new ArrayList<block>();
-    public static int difficulty = 6;
+    public static int difficulty = 3;
 
     /**
      * @param args the command line arguments
@@ -23,8 +23,15 @@ public class mainLoader {
     public static void main(String[] args) {
         //Add data to blockchain
         ledger.add(new block("Hello World!", "0", new Date().getTime()));
+        ledger.get(0).proofBlockMiner(difficulty);
+        
         ledger.add(new block("IoT Block 1" , ledger.get(ledger.size()-1).getCurrentBlockHash(), new Date().getTime()));
+        ledger.get(1).proofBlockMiner(difficulty);
+        
         ledger.add(new block("IoT Block 2" , ledger.get(ledger.size()-1).getCurrentBlockHash(), new Date().getTime()));
+        ledger.get(2).proofBlockMiner(difficulty);
+        
+        System.out.println("Ledger Hash Validity: " + ledgerValidity());
         
         //Convert to JSON and print
 	String blockchainJSON = stringManipulation.generateJSON(ledger);		
@@ -34,7 +41,7 @@ public class mainLoader {
     /* Validating blockchain data
     Loop through each block in the blockchain and compare the base cases of calculated hashes
     */
-    public static Boolean isChainValid() {
+    public static Boolean ledgerValidity() {
         //Set the difficulty of the calculated mined hash
         String hashTarget = stringManipulation.getMiningDificulty(difficulty);
 
@@ -48,19 +55,21 @@ public class mainLoader {
             block formerBlock = ledger.get(indexElement - 1);
 
             //Base Case: Check if mined hash is not the same as the referenced hash (!)
-            if (iterationBlock.getCurrentBlockHash() != iterationBlock.hashData()) {
+            if (!iterationBlock.getCurrentBlockHash().equals(iterationBlock.hashData())) {
                 return false;
             }
 
             //Data Integrity Case: Check if former hash is not the same as the referenced previous hash (!!)
-            if (formerBlock.getCurrentBlockHash() != iterationBlock.getPreviousBlockHash()) {
+            if (!formerBlock.getCurrentBlockHash().equals(iterationBlock.getPreviousBlockHash())) {
                 return false;
             }
 
             //Unsuccessful Mined Case: Check if caclulated hash is equal to the referenced hash
-            if (iterationBlock.getCurrentBlockHash().substring(0, difficulty) != hashTarget) {
+            if (!iterationBlock.getCurrentBlockHash().substring(0, difficulty).equals(hashTarget)) {
                 return false;
             }
+            
+            indexElement++;
         }
         return true;
     }
