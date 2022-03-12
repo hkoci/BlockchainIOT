@@ -6,6 +6,8 @@ package uk.ac.brunel.prototypeiot.blockchain;
 
 import java.util.Date;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -14,8 +16,14 @@ import java.util.ArrayList;
  */
 public class mainLoader {
     
+    //Instantiate ledger object containg the block data structure 
     public static ArrayList<block> ledger = new ArrayList<block>();
-    public static int difficulty = 3;
+    
+    //Blockchain variables
+    public static int miningDifficulty = 5;
+    
+    //Instantiate debug logger
+    private static Logger infoLogObj = Logger.getLogger("InfoLogging");
 
     /**
      * @param args the command line arguments
@@ -23,15 +31,16 @@ public class mainLoader {
     public static void main(String[] args) {
         //Add data to blockchain
         ledger.add(new block("Hello World!", "0", new Date().getTime()));
-        ledger.get(0).proofBlockMiner(difficulty);
+        ledger.get(0).proofBlockMiner(miningDifficulty);
         
         ledger.add(new block("IoT Block 1" , ledger.get(ledger.size()-1).getCurrentBlockHash(), new Date().getTime()));
-        ledger.get(1).proofBlockMiner(difficulty);
+        ledger.get(1).proofBlockMiner(miningDifficulty);
         
         ledger.add(new block("IoT Block 2" , ledger.get(ledger.size()-1).getCurrentBlockHash(), new Date().getTime()));
-        ledger.get(2).proofBlockMiner(difficulty);
+        ledger.get(2).proofBlockMiner(miningDifficulty);
         
-        System.out.println("Ledger Hash Validity: " + ledgerValidity());
+        //Debug the data integrity
+        infoLogObj.log(Level.INFO, "(validility): Data integrity of blockchain ledger {0}", ledgerValidity());
         
         //Convert to JSON and print
 	String blockchainJSON = stringManipulation.generateJSON(ledger);		
@@ -43,7 +52,7 @@ public class mainLoader {
     */
     public static Boolean ledgerValidity() {
         //Set the difficulty of the calculated mined hash
-        String hashTarget = stringManipulation.getMiningDificulty(difficulty);
+        String hashTarget = stringManipulation.getMiningDificulty(miningDifficulty);
 
         //Starting at element 1 in blockchain arrayList
         int indexElement = 1;
@@ -56,16 +65,19 @@ public class mainLoader {
 
             //Base Case: Check if mined hash is not the same as the referenced hash (!)
             if (!iterationBlock.getCurrentBlockHash().equals(iterationBlock.hashData())) {
+                infoLogObj.warning("(validility): Caclulated hash of current block is not equal to the previous block (!)");
                 return false;
             }
 
             //Data Integrity Case: Check if former hash is not the same as the referenced previous hash (!!)
             if (!formerBlock.getCurrentBlockHash().equals(iterationBlock.getPreviousBlockHash())) {
+                infoLogObj.warning("(validility): Caclulated hash of the previous block is not equal to the current block's previous hash (!)");
                 return false;
             }
 
             //Unsuccessful Mined Case: Check if caclulated hash is equal to the referenced hash
-            if (!iterationBlock.getCurrentBlockHash().substring(0, difficulty).equals(hashTarget)) {
+            if (!iterationBlock.getCurrentBlockHash().substring(0, miningDifficulty).equals(hashTarget)) {
+                infoLogObj.warning("(validility): Caclulated hash has been modified, does not match difficulty");
                 return false;
             }
             
