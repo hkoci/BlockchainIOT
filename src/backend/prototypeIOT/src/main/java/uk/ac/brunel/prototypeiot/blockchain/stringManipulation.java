@@ -13,7 +13,7 @@ import com.google.gson.GsonBuilder;
  */
 public class stringManipulation {
     
-    /* JSON
+    /* JSON Generation Method
     Generate JSON from a object using GsonBuilder
     */
     public static String generateJSON(Object dataObject){
@@ -25,6 +25,13 @@ public class stringManipulation {
         
         //Return result
         return jsonString;
+    }
+    
+    /*Block Mining Difficulty level
+    This method generates a number of 0's based on a integer given - required when mining to search for x zeros
+    */
+    public static String getMiningDificulty(int difficulty) {
+        return "0".repeat(difficulty);
     }
     
 }

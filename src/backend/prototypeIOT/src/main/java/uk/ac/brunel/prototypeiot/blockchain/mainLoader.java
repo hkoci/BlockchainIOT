@@ -6,28 +6,63 @@ package uk.ac.brunel.prototypeiot.blockchain;
 
 import java.util.Date;
 import java.util.ArrayList;
-import com.google.gson.GsonBuilder;
 
 /**
  *
  * @author Henri
+ * @author (tutorial reference) https://medium.com/programmers-blockchain/create-simple-blockchain-java-tutorial-from-scratch-6eeed3cb03fa
  */
 public class mainLoader {
     
-    public static ArrayList<block> blockchain = new ArrayList<block>(); 
+    public static ArrayList<block> ledger = new ArrayList<block>();
+    public static int difficulty = 6;
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         //Add data to blockchain
-        blockchain.add(new block("Hello World!", "0", new Date().getTime()));
-        blockchain.add(new block("IoT Block 1" , blockchain.get(blockchain.size()-1).getCurrentHash(), new Date().getTime()));
-        blockchain.add(new block("IoT Block 2" , blockchain.get(blockchain.size()-1).getCurrentHash(), new Date().getTime()));
+        ledger.add(new block("Hello World!", "0", new Date().getTime()));
+        ledger.add(new block("IoT Block 1" , ledger.get(ledger.size()-1).getCurrentBlockHash(), new Date().getTime()));
+        ledger.add(new block("IoT Block 2" , ledger.get(ledger.size()-1).getCurrentBlockHash(), new Date().getTime()));
         
         //Convert to JSON and print
-	String blockchainJSON = stringManipulation.generateJSON(blockchain);		
+	String blockchainJSON = stringManipulation.generateJSON(ledger);		
 	System.out.println(blockchainJSON);
+    }
+    
+    /* Validating blockchain data
+    Loop through each block in the blockchain and compare the base cases of calculated hashes
+    */
+    public static Boolean isChainValid() {
+        //Set the difficulty of the calculated mined hash
+        String hashTarget = stringManipulation.getMiningDificulty(difficulty);
+
+        //Starting at element 1 in blockchain arrayList
+        int indexElement = 1;
+        
+        //Loop until all block bytes in arrayList ledger have been checked
+        while(indexElement < ledger.size()){
+            //Initalise the current and previous block
+            block iterationBlock = ledger.get(indexElement);
+            block formerBlock = ledger.get(indexElement - 1);
+
+            //Base Case: Check if mined hash is not the same as the referenced hash (!)
+            if (iterationBlock.getCurrentBlockHash() != iterationBlock.hashData()) {
+                return false;
+            }
+
+            //Data Integrity Case: Check if former hash is not the same as the referenced previous hash (!!)
+            if (formerBlock.getCurrentBlockHash() != iterationBlock.getPreviousBlockHash()) {
+                return false;
+            }
+
+            //Unsuccessful Mined Case: Check if caclulated hash is equal to the referenced hash
+            if (iterationBlock.getCurrentBlockHash().substring(0, difficulty) != hashTarget) {
+                return false;
+            }
+        }
+        return true;
     }
     
 }
