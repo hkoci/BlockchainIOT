@@ -7,7 +7,7 @@ package uk.ac.brunel.prototypeiot.blockchain;
 /**
  *
  * @author Henri
- * 
+ * @author (tutorial reference) https://medium.com/programmers-blockchain/create-simple-blockchain-java-tutorial-from-scratch-6eeed3cb03fa
  */
 public class block {
     
@@ -36,13 +36,27 @@ public class block {
     }
     
     //Hash Getter
-    public String getCurrentHash(){
+    public String getCurrentBlockHash(){
         return hash;
     }
     
     //Hash Getter
-    public String getPreviousHash(){
+    public String getPreviousBlockHash(){
         return previousHash;
+    }
+    
+    /*Block Mining (PoW)
+    Set the difficulty of mined block and then calculate the hash result of this block
+    */
+    public void proofBlockMiner(int difficulty) {
+        //Difficulty is based on the number of starting zero's to be matched
+        String hashStartZeros = stringManipulation.getMiningDificulty(difficulty);
+        
+        //If the difficulty has not been reached, then mine the block, increasing nonce on each attempt
+        while(hash.substring(0, difficulty) != hashStartZeros) {
+            nonce ++;
+            hash = hashData();
+        }
     }
     
 }
