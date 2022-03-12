@@ -5,25 +5,73 @@
 package uk.ac.brunel.prototypeiot.blockchain;
 
 import java.util.Date;
+import java.util.ArrayList;
 
 /**
  *
  * @author Henri
+ * @author (tutorial reference) https://medium.com/programmers-blockchain/create-simple-blockchain-java-tutorial-from-scratch-6eeed3cb03fa
  */
 public class mainLoader {
+    
+    public static ArrayList<block> ledger = new ArrayList<block>();
+    public static int difficulty = 3;
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        block genesisBlock = new block("Hello World!", "0", new Date().getTime());
-        System.out.println("(Block 1) Hash: " + genesisBlock.getHash());
+        //Add data to blockchain
+        ledger.add(new block("Hello World!", "0", new Date().getTime()));
+        ledger.get(0).proofBlockMiner(difficulty);
+        
+        ledger.add(new block("IoT Block 1" , ledger.get(ledger.size()-1).getCurrentBlockHash(), new Date().getTime()));
+        ledger.get(1).proofBlockMiner(difficulty);
+        
+        ledger.add(new block("IoT Block 2" , ledger.get(ledger.size()-1).getCurrentBlockHash(), new Date().getTime()));
+        ledger.get(2).proofBlockMiner(difficulty);
+        
+        System.out.println("Ledger Hash Validity: " + ledgerValidity());
+        
+        //Convert to JSON and print
+	String blockchainJSON = stringManipulation.generateJSON(ledger);		
+	System.out.println(blockchainJSON);
+    }
+    
+    /* Validating blockchain data
+    Loop through each block in the blockchain and compare the base cases of calculated hashes
+    */
+    public static Boolean ledgerValidity() {
+        //Set the difficulty of the calculated mined hash
+        String hashTarget = stringManipulation.getMiningDificulty(difficulty);
 
-        block secondBlock = new block("IoT Block 1" , genesisBlock.getHash(), new Date().getTime());
-        System.out.println("(Block 2) Hash: " + secondBlock.getHash());
+        //Starting at element 1 in blockchain arrayList
+        int indexElement = 1;
+        
+        //Loop until all block bytes in arrayList ledger have been checked
+        while(indexElement < ledger.size()){
+            //Initalise the current and previous block
+            block iterationBlock = ledger.get(indexElement);
+            block formerBlock = ledger.get(indexElement - 1);
 
-        block thirdBlock = new block("IoT Block 2" , secondBlock.getHash(), new Date().getTime());
-        System.out.println("(Block 3) Hash: " + thirdBlock.getHash());
+            //Base Case: Check if mined hash is not the same as the referenced hash (!)
+            if (!iterationBlock.getCurrentBlockHash().equals(iterationBlock.hashData())) {
+                return false;
+            }
+
+            //Data Integrity Case: Check if former hash is not the same as the referenced previous hash (!!)
+            if (!formerBlock.getCurrentBlockHash().equals(iterationBlock.getPreviousBlockHash())) {
+                return false;
+            }
+
+            //Unsuccessful Mined Case: Check if caclulated hash is equal to the referenced hash
+            if (!iterationBlock.getCurrentBlockHash().substring(0, difficulty).equals(hashTarget)) {
+                return false;
+            }
+            
+            indexElement++;
+        }
+        return true;
     }
     
 }

@@ -4,7 +4,6 @@
  */
 package uk.ac.brunel.prototypeiot.blockchain;
 
-import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -20,7 +19,7 @@ public class hashAlgorithm {
     public static String hashSHA3Byte(String plainText) {
         try {
             //Instantiate MessageDigest object to use SHA3 algorithm
-            MessageDigest shaDigestObject = MessageDigest.getInstance("SHA3-256");
+            MessageDigest shaDigestObject = MessageDigest.getInstance("SHA-256");
 
             //Hash the plaintext using the SHA3 algorithm into a Byte data structure
             byte[] hashAsByteArr = shaDigestObject.digest(plainText.getBytes(StandardCharsets.UTF_8));
@@ -35,22 +34,18 @@ public class hashAlgorithm {
     
     //Convert Byte data structure to a hexadecimal string
     private static String bytesToHex(byte[] hashAsByteArr) {
+        //Initialise StringBuilder, where the individual bytes will be stored as String
+        StringBuilder hexBuilder = new StringBuilder();
         
-        //Generate Integer sign of byte array
-        BigInteger byteSign = new BigInteger(1, hashAsByteArr);
-        
-        //Generate String of base 16
-        StringBuilder hexByteString = new StringBuilder(byteSign.toString(16)); 
-
-        /* Add leading zeros to whole String, only if not completed
-        32 digits (1 byte = 2 chars, 16 byte = 32 chars) */
-        
-        while (hexByteString.length() < 32) {
-            hexByteString.insert(0, '0'); 
+        //Loop for each byte in array
+        for (byte currentByte : hashAsByteArr) {
+            /* Concatenate each byte in the Array using the %02x parameter
+               The %02x param, prints atleast 2 digits from the hex, appending 0 if there is only 1 digit present */
+            hexBuilder.append(String.format("%02x", currentByte));
         }
-        
-        //Return the complete hexadecimal string
-        return hexByteString.toString();
+
+        //Return result as String
+        return hexBuilder.toString();
     }
    
 }
