@@ -14,7 +14,7 @@ import java.util.logging.Logger;
  * @author Henri
  * @author (tutorial reference) https://medium.com/programmers-blockchain/create-simple-blockchain-java-tutorial-from-scratch-6eeed3cb03fa
  */
-public class mainLoader {
+public class blockService {
     
     //Instantiate ledger object containg the block data structure 
     public static ArrayList<block> ledger = new ArrayList<block>();
@@ -24,6 +24,35 @@ public class mainLoader {
     
     //Instantiate debug logger
     private static Logger infoLogObj = Logger.getLogger("InfoLogging");
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        
+        System.out.println("Valid" + ledgerValidity());
+        createBlock("Hello World!");
+        //mineBlock();
+        
+        System.out.println(displayBlockchain());
+        
+        System.out.println("Valid2" + ledgerValidity());
+        createBlock("Hello Again World!");
+        //mineBlock();
+        
+        System.out.println("Valid3" + ledgerValidity());
+        System.out.println(displayBlockchain());
+        
+        createBlock("Hello Again Again World!");
+        //mineBlock();
+        
+        System.out.println("Valid4" + ledgerValidity());
+        
+        
+        
+        //Debug the data integrity
+        infoLogObj.log(Level.INFO, "(validility): Data integrity of blockchain ledger {0}", ledgerValidity());
+    }
     
     public static boolean createBlock(String blockData){
         //Base case: Check for data integrity of blockchain hashes being valid (!)
@@ -53,6 +82,11 @@ public class mainLoader {
     
     public static String displayBlockchain(){
 	return stringManipulation.generateJSON(ledger);
+    }
+    
+    //Method overloading, using params for specific block
+    public static String displayBlockchain(int blockIndex){
+	return stringManipulation.generateJSON(ledger.get(blockIndex));
     }
     
     /* Validating blockchain data
