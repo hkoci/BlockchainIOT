@@ -17,6 +17,46 @@
 		<java.version>11</java.version>
 	</properties>
 	<dependencies>
+                <!--- JUnit dependencies -->
+                <dependency>
+                    <groupId>org.junit.jupiter</groupId>
+                    <artifactId>junit-jupiter-api</artifactId>
+                    <version>5.6.0</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.junit.jupiter</groupId>
+                    <artifactId>junit-jupiter-params</artifactId>
+                    <version>5.6.0</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.junit.jupiter</groupId>
+                    <artifactId>junit-jupiter-engine</artifactId>
+                    <version>5.6.0</version>
+                    <scope>test</scope>
+                </dependency>
+                
+                <!-- Jacoco code coverage dependencies https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin -->
+                <dependency>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>0.8.7</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-core</artifactId>
+                    <type>jar</type>
+                </dependency>
+                
+                <!-- GSON dependency for generating JSON from Arraylist https://github.com/google/gson -->
+                <dependency>
+                    <groupId>com.google.code.gson</groupId>
+                    <artifactId>gson</artifactId>
+                    <version>2.9.0</version>
+                </dependency>
+        
+                <!--- Spring Boot dependencies -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -70,5 +110,38 @@
                         </plugin>
 		</plugins>
 	</build>
+        
+        <profiles>
+        <!-- Code coverage workflow taken from https://blog.codecentric.de/en/2021/02/github-actions-pipeline/ -->
+            <profile>
+            <id>coverage</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <version>0.8.7</version>
+                        <executions>
+                            <!-- Prepares the property pointing to the JaCoCo runtime agent
+                            which is passed as VM argument when Maven the Surefire plugin is executed. -->
+                            <execution>
+                                <goals>
+                                    <goal>prepare-agent</goal>
+                                </goals>
+                            </execution>
+                            <!-- Ensures that the code coverage report is created after
+                            all tests have been run. -->
+                            <execution>
+                                <id>generate-report</id>
+                                <goals>
+                                    <goal>report</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+            </profile>
+        </profiles>
 
 </project>
