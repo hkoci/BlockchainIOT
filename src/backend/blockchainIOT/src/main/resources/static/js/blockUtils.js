@@ -35,7 +35,7 @@ $(document).ready( function () {
                 html += '</div>';
                 $( ".flex-shrink-0" ).append( html );
                 //Remove progress indicator
-                $('#preLoaderModal').modal('hide');
+                $('#preLoaderModal').delay('500').modal('hide');
             }else{
                 var html = '<div class="alert alert-danger alert-dismissible fade show mt-2" role="alert" width="50%">';
                 html += '<strong>Validation failed</strong> The data integrity of the blockchain has been affected.';
@@ -43,7 +43,7 @@ $(document).ready( function () {
                 html += '</div>';
                 $( ".flex-shrink-0" ).append( html );
                 //Remove progress indicator
-                $('#preLoaderModal').modal('hide');
+                $('#preLoaderModal').delay('500').modal('hide');
             }
 
         });
