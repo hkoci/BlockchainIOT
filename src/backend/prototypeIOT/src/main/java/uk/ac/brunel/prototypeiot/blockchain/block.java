@@ -4,6 +4,8 @@
  */
 package uk.ac.brunel.prototypeiot.blockchain;
 
+import java.util.logging.Logger;
+
 /**
  *
  * @author Henri
@@ -17,6 +19,9 @@ public class block {
     private String blockData;
     private long timeStamp;
     private int nonce;
+    
+    //Instantiate debug logger
+    private static Logger infoLogObj = Logger.getLogger("InfoLogging");
  
     /*Block constructor
     The block is defined in this data structure where hashData is last!
@@ -52,13 +57,14 @@ public class block {
         //Difficulty is based on the number of starting zero's to be matched
         String hashStartZeros = stringManipulation.getMiningDificulty(difficulty);
         
-        System.out.println("hashStartZeros" + hashStartZeros);
-        
         //If the difficulty has not been reached, then mine the block, increasing nonce on each attempt
         while(!hash.substring(0, difficulty).equals(hashStartZeros)) {
             nonce ++;
             hash = hashData();
         }
+        
+        //Log successful calculation of valid hash
+        infoLogObj.info("(miner): Successfully mined block");
     }
     
 }
