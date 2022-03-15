@@ -14,12 +14,12 @@ $(document).ready( function () {
             var html = '<div class="card card-body">';
             html += '<div class="mb-3 row">';
             html += '<label for="blockHash" class="col-sm-2 col-form-label">Hash</label>';
-            html += '<div class="col-sm-10"> <input type="text" readonly class="form-control-plaintext" id="blockHash" value="' + data[i].hash + '"> </div>';
+            html += '<div class="col-sm-10"> <code><input type="text" readonly class="form-control-plaintext" id="blockHash" value="' + data[i].hash + '"></code> </div>';
             html += '</div>';
             //Previous Hash
             html += '<div class="mb-3 row">';
             html += '<label for="previousBlockHash" class="col-sm-2 col-form-label">Prev. Hash</label>';
-            html += '<div class="col-sm-10"> <input type="text" readonly class="form-control-plaintext" id="previousBlockHash" value="' + data[i].previousHash + '"> </div>';
+            html += '<div class="col-sm-10"> <code><input type="text" readonly class="form-control-plaintext" id="previousBlockHash" value="' + data[i].previousHash + '"></code> </div>';
             html += '</div>';
             //Nonce
             html += '<div class="mb-3 row">';
@@ -38,7 +38,7 @@ $(document).ready( function () {
             html += '</form>';
             //Check if its the last block, to add miner button
             if(i === data.length - 1){
-                html += '<button type="button" class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#mineModal" onclick="$("#mineModal").modal("show")">';
+                html += '<button type="button" class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#mineModal">';
                 html += 'Mine last block';
                 html += '</button>';
             }
