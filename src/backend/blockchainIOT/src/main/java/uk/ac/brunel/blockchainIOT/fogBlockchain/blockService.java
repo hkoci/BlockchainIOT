@@ -111,19 +111,19 @@ public class blockService {
 
             //Base Case: Check if mined hash is not the same as the referenced hash (!)
             if (!iterationBlock.getCurrentBlockHash().equals(iterationBlock.hashData())) {
-                infoLogObj.warning("(validility): Caclulated hash of current block is not equal to the previous block (!)");
+                infoLogObj.warning("(validility): Calculated hash of current block is not equal to the previous block (!)");
                 return false;
             }
 
             //Data Integrity Case: Check if former hash is not the same as the referenced previous hash (!!)
             if (!formerBlock.getCurrentBlockHash().equals(iterationBlock.getPreviousBlockHash())) {
-                infoLogObj.warning("(validility): Caclulated hash of the previous block is not equal to the current block's previous hash (!)");
+                infoLogObj.warning("(validility): Calculated hash of the previous block is not equal to the current block's previous hash (!)");
                 return false;
             }
 
             //Unsuccessful Mined Case: Check if caclulated hash is equal to the referenced hash
             if (!iterationBlock.getCurrentBlockHash().substring(0, miningDifficulty).equals(hashTarget)) {
-                infoLogObj.warning("(validility): Caclulated hash has been modified, does not match difficulty");
+                infoLogObj.warning("(validility): Calculated hash has been modified, does not match difficulty");
                 return false;
             }
             

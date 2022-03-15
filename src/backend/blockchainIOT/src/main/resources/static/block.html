@@ -60,18 +60,18 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     </nav>
     <!-- Begin page content -->
     <main class="flex-shrink-0">
-        <div class="container">
+        <div class="container main-cont">
             <h1 class="mt-5">Block Explorer</h1>
             <p class="lead">The below diagram will show all the blocks currently stored on the blockchain.</p>
             <a href="#" class="btn btn-primary" onclick="">Create Block</a>
-            <a href="#" class="btn btn-success">Validate Block</a>
+            <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#validationModal">Validate Block</a>
             <a href="#" class="btn btn-danger">Clear Blockchain</a>
         </div>
     </main>
     
     <div class="container-fluid py-2">
         <div class="d-flex flex-row flex-nowrap" id="blockCards">
-
+            
         </div>
     </div>
     
@@ -86,7 +86,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             </button>
           </div>
           <div class="modal-body">
-            Only the last block can be mined (!)
+            The last block can be requested to be mined to check the hash validity of the blockchain using the preset difficulty level set in the Settings page.
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -96,17 +96,43 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
       </div>
     </div>
     
-    <!-- Miner Preloader Modal -->
-    <div class="modal fade bd-example-modal-lg" id="minerLoaderModal" tabindex="-1" role="dialog" aria-labelledby="minerLoaderModal" aria-hidden="true">
+    <!-- Preloader Modal -->
+    <div class="modal fade bd-example-modal-lg" id="preLoaderModal" tabindex="-1" role="dialog" aria-labelledby="minerLoaderModal" aria-hidden="true">
       <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Mining block</h5>
+            <h5 class="modal-title" id="preLoaderModalTitle"></h5>
           </div>
           <div class="modal-body">
             <div class="progress" style="height: 35px;">
               <div class="progress-bar-animated progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="1" style="width: 100%"></div>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Validation Modal -->
+    <div class="modal fade" id="validationModal" tabindex="-1" role="dialog" aria-labelledby="validationModal" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Validate blockchain integrity</h5>
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            The blockchain can be checked if it's data integrity is valid. The method has been designed to check for the following cases:
+            <ul>
+                <li>Calculated hash of current block is not equal to the previous block</li>
+                <li>Calculated hash of the previous block is not equal to the current block's previous hash</li>
+                <li>Calculated hash does not match mined difficulty</li>
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button id="validateBtn" type="button" class="btn btn-primary">Validate blockchain</button>
           </div>
         </div>
       </div>
@@ -129,7 +155,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     <script src="js/cardLoader.js"></script>
     
     <!-- Miner modal script -->
-    <script src="js/mineLastBlock.js"></script>
+    <script src="js/blockUtils.js"></script>
   
   </body>
 </html>
