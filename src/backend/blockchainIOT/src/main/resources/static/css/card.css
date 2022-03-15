@@ -1,5 +1,10 @@
 .card-body {
-    min-height: 300px;
-    min-width: 300px;
-    margin-right: 5px;
+    min-height: 250px;
+    min-width: 400px;
+    margin-right: 25px;
+}
+
+.inner-card {
+    height: 20px;
+    background-color: #eee
 }
