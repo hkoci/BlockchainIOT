@@ -35,7 +35,13 @@ $(document).ready( function () {
             html += '<form class="form-floating">';
             html += '<input type="blockData" class="form-control disable" id="blockData" value=" ' + data[i].blockData + ' " readonly>';
             html += '<label for="floatingInputValue">Block Data</label>';
-            html += '</div>';
+            html += '</form>';
+            //Check if its the last block, to add miner button
+            if(i === data.length - 1){
+                html += '<button type="button" class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#mineModal" onclick="$("#mineModal").modal("show")">';
+                html += 'Mine last block';
+                html += '</button>';
+            }
             //EOF
             html += '</div>';
             $('#blockCards').append(html);
