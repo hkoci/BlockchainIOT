@@ -1,0 +1,17 @@
+main > .container {
+  padding: 65px 22px 0;
+}
+
+.chainLogo {
+  display: block;
+  font-family: sans-serif;
+  font-size: 20px;
+}
+
+.chainLogo span:nth-child(2) {
+  background: #FF9900;
+  color: #000000;
+  border-radius: 0.45vw;
+  padding: 0 0.25vw 0.25vw 0.25vw;
+  display: inline-block;
+}

@@ -75,6 +75,11 @@ public class blockService {
         }
     }
     
+    public static void setMiningDifficulty(int ){
+        infoLogObj.log(Level.INFO, "(miner): Mining Block {0}", ledger.size() - 1);
+        ledger.get(ledger.size() - 1).proofBlockMiner(miningDifficulty);
+    }
+    
     public static void mineBlock(){
         infoLogObj.log(Level.INFO, "(miner): Mining Block {0}", ledger.size() - 1);
         ledger.get(ledger.size() - 1).proofBlockMiner(miningDifficulty);
