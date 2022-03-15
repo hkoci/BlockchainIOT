@@ -96,6 +96,22 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
       </div>
     </div>
     
+    <!-- Miner Preloader Modal -->
+    <div class="modal fade bd-example-modal-lg" id="minerLoaderModal" tabindex="-1" role="dialog" aria-labelledby="minerLoaderModal" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Mining block</h5>
+          </div>
+          <div class="modal-body">
+            <div class="progress" style="height: 35px;">
+              <div class="progress-bar-animated progress-bar-striped progress-bar-animated bg-success" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="1" style="width: 100%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
     <footer class="footer fixed-bottom mt-auto py-3 bg-light">
         <div class="container">
             <span class="text-muted">ChainIOT; Adopting the IoT to Blockchain
@@ -111,6 +127,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
   
     <!-- Load cards on document launch -->
     <script src="js/cardLoader.js"></script>
+    
+    <!-- Miner modal script -->
+    <script src="js/mineLastBlock.js"></script>
   
   </body>
 </html>
