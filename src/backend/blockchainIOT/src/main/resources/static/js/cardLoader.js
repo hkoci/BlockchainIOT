@@ -4,7 +4,7 @@
  */
 
 $(document).ready( function () {
-    $.getJSON("http://localhost:8080/api/fog/block/all", function(data) {
+    $.getJSON("api/fog/block/all", function(data) {
         //Loop each object in the json request
         for (var i = 0; i < data.length; i++) {
             
