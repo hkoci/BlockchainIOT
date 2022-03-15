@@ -59,10 +59,27 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     <!-- Begin page content -->
     <main class="flex-shrink-0">
         <div class="container">
-            <h1 class="mt-5">Adopting the IoT to Blockchain!</h1>
-            <p class="lead">The aim of this project is to create a blockchain solution to solve the maintainability, security, and privacy issues with IOT devices.</p>
+            <h1 class="mt-5">Settings</h1>
+            <div class="alert alert-warning" role="alert">
+              <h4 class="alert-heading">Warning!</h4>
+              <p>Changing the difficulty level of the mining process, will increase the amount of time it takes for a block to get mined.</p>
+              <hr>
+              <p class="mb-0">In addition, the blockchain stored on the ledger will be <b>permanently removed</b> as this will be invalid after!</p>
+            </div>
+            <p class="lead">The following parameters can be customised</p>
+            <div>
+                <form>
+                    <div class="form-group col-lg">
+                        <label>Mining difficulty</label>
+                        <p>This is the number matching leading zero's to be matched when hashing in the mining process.</p>
+                        <input type="range" class="form-range" min="1" max="10" step="1" id="difficultyRange" onInput="$('#difficultyValue').html($(this).val())">
+                        <span id="difficultyValue">5<!-- Default value --></span>
+                    </div>
+                </form>
+            </div>
         </div>
     </main>
+    
     <footer class="footer fixed-bottom mt-auto py-3 bg-light">
         <div class="container">
             <span class="text-muted">ChainIOT; Adopting the IoT to Blockchain
@@ -70,7 +87,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         </div>
     </footer>
 
+    <!-- JQuery 3.6.0 CDN Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    
+    <!-- Load cards on document launch -->
+    <script src="js/blockParams.js"></script>
   </body>
 </html>

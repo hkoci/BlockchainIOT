@@ -53,7 +53,13 @@ public class BlockchainIotController {
         blockService.mineBlock();
     }
     
-    //Add block using data param
+    //Mine the last block
+    @GetMapping(value = "/block/mine/difficulty")
+    public int getMinerDifficulty() {
+        return blockService.getMiningDifficulty();
+    }
+    
+    //Change mining difficulty using data param
     @PostMapping(value = "/block/mine/difficulty")
     public void minerSetDifficulty(@RequestParam("difficulty") int difficulty) {
         blockService.setMiningDifficulty(difficulty);

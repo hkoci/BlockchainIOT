@@ -81,4 +81,22 @@ $(document).ready( function () {
             }, 500);
         });
     });
+    
+    //Blockchain validation onClick function
+    $('#clearBtn').click(function(){
+        //Hide Modal
+        $('#clearModal').modal('hide');
+        //Show progress bar modal anim
+        $('#preLoaderModal').modal('show' , {backdrop: 'static', keyboard: false}); 
+        $('#preLoaderModalTitle').html("Removing blockchain data");
+        //Perform mining request to endpoint
+        $.get( "api/fog/block/clear", function( data ) {
+            //Delay by 500ms as the get request is quite instant preventing closure of modal that just opened (!)
+            setTimeout(function () {
+                //Remove progress indicator
+                $('#preLoaderModal').modal('hide');
+                location.reload();
+            }, 500);
+        });
+    });
 });
