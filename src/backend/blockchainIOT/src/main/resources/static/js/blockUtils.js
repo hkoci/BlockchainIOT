@@ -10,7 +10,7 @@ $(document).ready( function () {
         //Hide Modal
         $('#mineModal').modal('hide');
         //Show progress bar modal anim
-        $('#preLoaderModal').modal('show'); 
+        $('#preLoaderModal').modal('show' , {backdrop: 'static', keyboard: false}); 
         $('#preLoaderModalTitle').html("Mining in progress");
         //Perform mining request to endpoint
         $.get( "api/fog/block/mine", function( data ) {
@@ -26,7 +26,7 @@ $(document).ready( function () {
         //Hide Modal
         $('#createModal').modal('hide');
         //Show progress bar modal anim
-        $('#preLoaderModal').modal('show'); 
+        $('#preLoaderModal').modal('show' , {backdrop: 'static', keyboard: false}); 
         $('#preLoaderModalTitle').html("Creating block");
 
         //Perform mining request to endpoint, using input data
@@ -55,7 +55,7 @@ $(document).ready( function () {
         //Hide Modal
         $('#validationModal').modal('hide');
         //Show progress bar modal anim
-        $('#preLoaderModal').modal('show'); 
+        $('#preLoaderModal').modal('show' , {backdrop: 'static', keyboard: false}); 
         $('#preLoaderModalTitle').html("Validation in progress");
         //Perform mining request to endpoint
         $.get( "api/fog/block/valid", function( data ) {

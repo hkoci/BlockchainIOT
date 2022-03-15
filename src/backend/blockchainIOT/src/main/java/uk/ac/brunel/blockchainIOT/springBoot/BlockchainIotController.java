@@ -53,6 +53,18 @@ public class BlockchainIotController {
         blockService.mineBlock();
     }
     
+    //Add block using data param
+    @PostMapping(value = "/block/mine/difficulty")
+    public void minerSetDifficulty(@RequestParam("difficulty") int difficulty) {
+        blockService.setMiningDifficulty(difficulty);
+    }
+
+    //Remove blockchain data
+    @GetMapping(value = "/block/clear")
+    public void clearAllBlocks() {
+        blockService.clearBlocks();
+    }
+    
     //Check block validity
     @GetMapping(value = "/block/valid")
     public boolean getBlockValidity() {

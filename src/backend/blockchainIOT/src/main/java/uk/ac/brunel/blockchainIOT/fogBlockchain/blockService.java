@@ -76,7 +76,12 @@ public class blockService {
     }
     
     public static void setMiningDifficulty(int difficulty){
+        ledger.clear();
         miningDifficulty = difficulty;
+    }
+    
+    public static void clearBlocks(){
+        ledger.clear();
     }
     
     public static void mineBlock(){
