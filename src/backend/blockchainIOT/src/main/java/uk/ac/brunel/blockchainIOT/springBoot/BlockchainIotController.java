@@ -47,6 +47,12 @@ public class BlockchainIotController {
         return blockService.createBlock(blockData);
     }
     
+    //Mine the last block
+    @GetMapping(value = "/block/mine")
+    public void mineLastBlock() {
+        blockService.mineBlock();
+    }
+    
     //Check block validity
     @GetMapping(value = "/block/valid")
     public boolean getBlockValidity() {
