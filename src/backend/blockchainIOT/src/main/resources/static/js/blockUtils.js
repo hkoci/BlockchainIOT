@@ -28,24 +28,26 @@ $(document).ready( function () {
         $('#preLoaderModalTitle').html("Validation in progress");
         //Perform mining request to endpoint
         $.get( "api/fog/block/valid", function( data ) {
-            if(data === true){
-                var html = '<div class="alert alert-success alert-dismissible fade show mt-2" role="alert" width="50%">';
-                html += '<strong>Validation passed</strong> The data integrity of the blockchain has not been affected.';
-                html += '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
-                html += '</div>';
-                $( ".flex-shrink-0" ).append( html );
+            //Delay by 500ms as the get request is quite instant preventing closure of modal that just opened (!)
+            setTimeout(function () {
                 //Remove progress indicator
-                $('#preLoaderModal').delay('500').modal('hide');
-            }else{
-                var html = '<div class="alert alert-danger alert-dismissible fade show mt-2" role="alert" width="50%">';
-                html += '<strong>Validation failed</strong> The data integrity of the blockchain has been affected.';
-                html += '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
-                html += '</div>';
-                $( ".flex-shrink-0" ).append( html );
-                //Remove progress indicator
-                $('#preLoaderModal').delay('500').modal('hide');
-            }
-
+                $('#preLoaderModal').modal('hide');
+                if(data === true){
+                    //Append validation success msg
+                    var html = '<div class="alert alert-success alert-dismissible fade show mt-2" role="alert" width="50%">';
+                    html += '<strong>Validation passed</strong> The data integrity of the blockchain has not been affected.';
+                    html += '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
+                    html += '</div>';
+                    $( ".flex-shrink-0" ).append( html );
+                }else{
+                    //Append validation fail msg
+                    var html = '<div class="alert alert-danger alert-dismissible fade show mt-2" role="alert" width="50%">';
+                    html += '<strong>Validation failed</strong> The data integrity of the blockchain has been affected.';
+                    html += '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
+                    html += '</div>';
+                    $( ".flex-shrink-0" ).append( html );
+                }
+            }, 500);
         });
     });
 });
