@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(path = "/api/fog")
-public class BlockchainIotController {
+public class springController {
     
     //Get specific block using blockNum identifier param
     @GetMapping(value = "/block")

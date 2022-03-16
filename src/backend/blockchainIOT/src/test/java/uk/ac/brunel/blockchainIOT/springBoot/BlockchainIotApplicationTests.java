@@ -11,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 class BlockchainIotApplicationTests {
     
 	@Autowired
-	private BlockchainIotController restController;
+	private springController restController;
 
 	@Test
 	void contextLoads() throws Exception {
