@@ -59,10 +59,21 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     <!-- Begin page content -->
     <main class="flex-shrink-0">
         <div class="container">
-            <h1 class="mt-5">Adopting the IoT to Blockchain!</h1>
-            <p class="lead">The aim of this project is to create a blockchain solution to solve the maintainability, security, and privacy issues with IOT devices.</p>
+            <h1 class="mt-5">Hash Generator</h1>
+            <p class="lead">The following tool can generate block hashes without storing the data onto the blockchain.</p>
+            <div class="col-3">
+              <label class="form-label">Previous Hash</label>
+              <input type="text" class="form-control mb-3" id="prevHash" placeholder="hash">
+<button type="submit" class="btn btn-primary ">Generate Random Previous Hash</button>
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createHash">Create Hash</a>
         </div>
     </main>
+    
     <footer class="footer fixed-bottom mt-auto py-3 bg-light">
         <div class="container">
             <span class="text-muted">ChainIOT; Adopting the IoT to Blockchain
